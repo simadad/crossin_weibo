@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.admin import User
+from django.contrib.auth.models import User
 import json
 # Create your models here.
 
@@ -14,10 +14,10 @@ class WBUser(User):
         (2, '女'),
         (3, '其他')
     )
-    nickname = models.CharField(verbose_name='昵称', max_length=60, unique=True, null=True, blank=True)
+    nickname = models.CharField(verbose_name='昵称', max_length=60, null=True, blank=True)
     gender = models.IntegerField(verbose_name='性别', choices=GENDER_OPTIONS, default=0)
     _info = models.TextField(verbose_name='其他信息', blank=True, null=True)
-    followers = models.ManyToManyField('WBUser')
+    followers = models.ManyToManyField('WBUser', verbose_name='粉丝')
 
     @property
     def name(self):
