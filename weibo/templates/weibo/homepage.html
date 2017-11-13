@@ -13,14 +13,19 @@
   <p><small>个性签名...</small></p>
   <p><a class="btn btn-primary btn-lg" href="#" role="button">修改资料</a></p>
 </div>
-<div class='row' id='info_list'>
+<div class="hidden wb_list">
+	<h1>我的最新微博</h1>
+	<hr />
+	<div class="wb_list_body" id='wb_update_list'></div>
 </div>
-<div class='row' id='wb_list'>
-<button class='btn btn-lg btn-block btn-primary'>最新好友微博</button>
-<hr />
-{% for wb in wbs %}
-	{% include "weibo\list_wb.html" %}
-{% endfor %}
+<div class='wb_list'>
+	<h1>最新好友微博</h1>
+	<hr />
+	<div class="wb_list_body">
+	{% for wb in wbs %}
+		{% include "weibo\list_wb.html" %}
+	{% endfor %}
+	</div>
 </div>
 {% endblock %}
 {% block modal %}
@@ -49,6 +54,7 @@
 {% block script %}
 <script>
 function wb_update(){
+	// 更新微博
 	document.getElementById('wb_update_form').onsubmit = function(e){
 		e.preventDefault();
 		var f = e.target,
@@ -58,10 +64,12 @@ function wb_update(){
 		xhr.onreadystatechange=function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var dataReply = xhr.responseText,
-					para = document.getElementById('info_list'),
+					para = document.getElementById('wb_update_list'),
+					pp_attr = para.parentElement.getAttribute('class'),
 					newBox = document.createElement('div');
 				para.insertBefore(newBox, para.firstChild);
 				newBox.innerHTML = dataReply;
+				para.parentElement.setAttribute('class', pp_attr.replace('hidden', ''));
 			};
 		};
 		xhr.send(formData);
