@@ -1,4 +1,2 @@
-# pro_weibo
-
-crossin 编程教室项目简易 weibo
-
+# pro_wb
+crossin 的编程教室大作业——简易微博
